@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Auth\LoginController;
 use App\Models\User;
 
 Route::get('/', function () {
@@ -10,22 +11,16 @@ Route::get('/', function () {
 });
 
 
-Route::post('/login', function (Request $request) {
-    //dd($request->all());  // Muestra los datos recibidos para verificar que llegan
-    $user = User::where('email', $request->email)->first();
+Route::post('/login', [LoginController::class, 'login'])->name('login');
 
-    if (! $user || ! Hash::check($request->password, $user->password)) {
-        return response()->json(['message' => 'Credenciales inválidas'], 401);
-    }
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login.form');
 
-    // Crear token personal
-    $token = $user->createToken('token-personal')->plainTextToken;
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-    return response()->json(['token' => $token]);
+Route::get('/register', [LoginController::class, 'showRegisterForm'])->name('register.form');
+
+Route::post('/register', [LoginController::class, 'register'])->name('register');
+
+Route::middleware('auth:sanctum')->get('/dashboard', function () {
+    return view('dashboard');
 });
-
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
