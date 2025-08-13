@@ -47,6 +47,13 @@
             @enderror
         </div>
 
+         <!-- Confirm Password -->
+        <div class="mb-6">
+            <label for="password_confirmation" class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
+            <input type="password" name="password_confirmation" id="password_confirmation" placeholder="Enter your password" required
+                   class="w-full px-4 py-2 mb-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-400 focus:outline-none">
+        </div>
+
         <!-- Botón -->
         <button type="submit"
                 class="w-full bg-green-500 text-white font-semibold py-2 rounded-lg hover:bg-green-600 transition">
