@@ -37,8 +37,14 @@ return [
 
     'guards' => [
         'web' => [
-            'driver' => 'session',
+            'driver' => 'session',  
             'provider' => 'users',
+         ],
+
+        'api' => [
+            'driver' => 'sanctum', // Opcional, si quieres usar Sanctum para API
+            'provider' => 'users',
+            'hash' => false,
         ],
     ],
 
